@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-1">
+    <%= image_tag tweet.user.profile_image_url_https.to_s, class: "rounded" %>
+  </div>
+  <div class="col-md-11">
+    <%= tweet.user.name %>
+    <span class="text-muted"><%= "@#{tweet.user.screen_name}" %></span>
+    <%= link_to l(tweet.created_at.in_time_zone("Brasilia"), format: :long), tweet.url.to_s %>
+
+    <p>
+      <%= format_tweet tweet %>
+
+      <% if tweet.media? %>
+        <p>
+        <% tweet.media.each do |media| %>
+          <% if media_has_image?(media) %>
+            <%= link_to(image_tag(media.media_url_https.to_s, class: "img-thumbnail img-fluid", style: "max-width: #{defined?(image_width) ? image_width : '48%'}; height: auto"), media.media_url_https.to_s, target: "_blank") %>
+          <% end %>
+        <% end %>
+        </p>
+      <% end %>
+
+      <% if tweet.urls.present? %>
+        <p>
+          <% tweet.urls.reject { |url| url.expanded_url.to_s.include?("/status/") }.each do |url| %>
+            <%= link_to url.expanded_url.to_s, url.expanded_url.to_s %>
+          <% end %>
+        </p>
+      <% end %>
+    </p>
+  </div>
+</div>

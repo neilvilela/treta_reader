@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145400974-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-145400974-1');
+    </script>
+
+    <title>TretaReader</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-light bg-light">
+        <% unless current_page?(root_url) %>
+          <span class="navbar-brand mb-0 h1"><%= link_to "TretaReader", root_url %></span>
+          <%= form_tag threads_url, method: :get, class: "form-inline" do %>
+            <%= text_field_tag :tweet_url, params[:tweet_url], placeholder: t(:tweet_url_field), class: "form-control" %>
+
+            <%= submit_tag t(:unroll_button), class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </nav>
+    </header>
+
+    <div class="container py-md-3">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+
+
+

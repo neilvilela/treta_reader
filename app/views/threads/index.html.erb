@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="jumbotron">
+      <h1 class="display-4">TretaReader</h1>
+      <p class="lead">Está difícil ler uma treta onde os envolvidos só respondem via RT comentado? Seus problemas acabaram!</p>
+      <hr class="my-4">
+      <p>Cole a URL de um tweet no campo abaixo e nós deixaremos a treta muito mais legível</p>
+      <p>Quer um exemplo? Tente este tweet: https://twitter.com/caiocgomes/status/1148622783540318208</p>
+
+      <div class="form-group">
+        <%= form_tag threads_url, method: :get do %>
+          <%= text_field_tag :tweet_url, params[:tweet_url], placeholder: t(:tweet_url_field), class: "form-control", autofocus: true %>
+
+          <div class="text-center py-md-3">
+            <%= submit_tag t(:unroll_button), class: "btn btn-primary btn-lg" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
