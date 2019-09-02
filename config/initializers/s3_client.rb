@@ -24,12 +24,14 @@ module S3Client
   end
 
   def save_tweet(tweet)
+    return if ENV["SKIP_S3"]
     client.put_object(body: tweet.to_json, bucket: Rails.application.credentials.aws[:bucket], key: "tweets/#{tweet.id}.json")
   rescue
     # Do not throw errors
   end
 
   def save_thread(thread_id, thread)
+    return if ENV["SKIP_S3"]
     client.put_object(body: thread.map(&:to_h).to_json, bucket: Rails.application.credentials.aws[:bucket], key: "threads/#{thread_id}.json")
   rescue
     # Do not throw errors

@@ -8,7 +8,7 @@ class ThreadReader
   def initialize(tweet_id)
     self.tweet_id = tweet_id
 
-    if @from_s3 = S3Client.get_thread(tweet_id)
+    if !ENV["SKIP_S3"] && @from_s3 = S3Client.get_thread(tweet_id)
       self.thread = @from_s3.map { |tweet| Twitter::Tweet.new(tweet) }
     else
       self.thread = [initial_tweet]
